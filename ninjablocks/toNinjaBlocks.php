@@ -10,6 +10,8 @@ The data received is then send to the "Ninja Cloud" using the REST API
 The effectively replaces the NinjaBlock client for publishing sensor
 data.
 
+Note: script is called by "toNinjaBlocks.sh"
+
 */
 
 define( 'BLOCK_ID', '1012BB013284' );
