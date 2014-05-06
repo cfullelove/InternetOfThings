@@ -5,13 +5,12 @@
 # are then published/subscribed to by various clients anywhere on
 # the local LAN
 
-HWID=`serialnumber`
+HWID=`/opt/utilities/bin/serialnumber`
 
 echo "Serial Number: $HWID"
 
 dopub() {
         while read line; do
-                # Note: filter out accelerometer readings... a bit spammy
                 if [[ "$line" == *\"D\":2* ]]
                 then
                         continue;
@@ -26,11 +25,12 @@ case $1 in
                 dopub < /dev/ttyO1
         ;;
         write)
-                mosquitto_sub -t RedNinja/`serialnumber`/write -h dns.lan > /dev/ttyO1
+                mosquitto_sub -t RedNinja/$HWID/write -h dns.lan > /dev/ttyO1
         ;;
         *)
                 /bin/bash $0 read &
                 /bin/bash $0 write &
+                jobs -p
                 wait $(jobs -p)
                 echo End
         ;;
