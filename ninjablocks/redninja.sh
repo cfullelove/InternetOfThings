@@ -11,6 +11,7 @@ echo "Serial Number: $HWID"
 
 dopub() {
         while read line; do
+                # Note: filter out accelerometer readings... a bit spammy
                 if [[ "$line" == *\"D\":2* ]]
                 then
                         continue;
